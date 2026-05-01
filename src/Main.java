@@ -1,10 +1,5 @@
 void main() {
-    // intanciando a arvore binária
-    ArvoreBinaria biblioteca = new ArvoreBinaria();
+    SistemaBiblioteca sistema = new SistemaBiblioteca();
 
-    // instanciando Grafo
-    Grafo grafoRecomendacoes = new Grafo();
-
-
-
+    sistema.iniciar();
 }

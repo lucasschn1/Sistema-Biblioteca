@@ -32,7 +32,7 @@ public class ArvoreBinaria {
      * @return o Livro {@code Livro} encontrado ou null {@code null} caso não exista
      */
 
-    public Livro bucarBFS(String tituloAlvo) {
+    public Livro buscarBFS(String tituloAlvo) {
         if (raiz == null) return null;
 
         Queue<Node> fila = new LinkedList<>();

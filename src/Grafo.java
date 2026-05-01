@@ -13,7 +13,7 @@ public class Grafo {
         }
     }
 
-    public void adicionarArestas(Livro origem, Livro destino) {
+    public void adicionarAresta(Livro origem, Livro destino) {
         adicionarVertices(origem);
         adicionarVertices(destino);
 

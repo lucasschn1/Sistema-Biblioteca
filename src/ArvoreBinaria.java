@@ -29,7 +29,7 @@ public class ArvoreBinaria {
      * Busca um livro na árvore usando BFS (Busca em Largura)
      *
      * @param tituloAlvo título do livro a ser buscaoo
-     * @return o Livro {@code Livro} encontrado ou null {@code null} caso não exista
+     * @return {@code Livro} encontrado ou {@code null} caso não exista
      */
 
     public Livro buscarBFS(String tituloAlvo) {

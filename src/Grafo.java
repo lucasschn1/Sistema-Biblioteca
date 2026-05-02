@@ -53,18 +53,4 @@ public class Grafo {
         }
         return distancias;
     }
-
-    public void mostrarRecomendacoes(Livro livro) {
-        // executa o Dijkstra a partir do livro escolhido
-        Map<Livro, Integer> resultados = this.djikstraSimples(livro);
-
-        System.out.println("--- RECOMENDAÇÕES BASEADAS EM: " + livro.getTitulo() + " ---");
-
-        resultados.entrySet().stream()
-                .filter(entry -> entry.getValue() > 0) // ignora o próprio livro (distância 0)
-                .sorted(Map.Entry.comparingByValue())                    // ordena do mais próximo ao mais distante
-                .limit(4)                                       // exibe apenas as 4 melhores recomendações
-                .forEach(entry -> System.out.println("Livro: " + entry.getKey().getTitulo() +
-                        " | Distância (pulos): " + entry.getValue()));
-    }
 }

@@ -4,7 +4,7 @@ public class SistemaBiblioteca {
     private ArvoreBinaria arvore = new ArvoreBinaria();
     private Grafo grafo = new Grafo();
     private Stack<Livro> historico = new Stack<>();
-    private Queue<Livro> filaDeEspera;
+    private Queue<String> filaDeEspera = new LinkedList<String>();
     private List<Livro> listaLivros = new ArrayList<>();
 
     public void iniciar() {
@@ -119,13 +119,11 @@ public class SistemaBiblioteca {
             System.out.println("\n==========================================");
             System.out.println("     SISTEMA DE BIBLIOTECA VIRTUAL        ");
             System.out.println("==========================================");
-            System.out.println("1 - Catálogo Completo (Lista)");
+            System.out.println("1 - Catálogo Completo");
             System.out.println("2 - Fila de Espera e Histórico (Stack/Queue)");
-            System.out.println("3 - Recomendações por Grafo (Semana 4)");
-            System.out.println("4 - Busca na Árvore Binária (DFS/BFS)");
-            System.out.println("5 - Ordenação por Ano (Semana 6)");
-            System.out.println("6 - Percorrer Grafo (DFS/BFS)");
-            System.out.println("7 - Recomendações Dijkstra (Semana 8)");
+            System.out.println("3 - Recomendações Dijkstra)");
+            System.out.println("4 - Busca na Árvore Binária (BFS)");
+            System.out.println("5 - Reservar Livro (Fila de Espera)");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -149,6 +147,8 @@ public class SistemaBiblioteca {
                 case 4:
                     buscarNaArvore(scanner);
                     break;
+                case 5:
+                    reservarLivro(scanner);
                 case 0:
                     System.out.println("Saindo... Até logo!");
                     break;
@@ -158,6 +158,7 @@ public class SistemaBiblioteca {
         }
     }
 
+    // mostra o catalogo de livros completo
     private void mostrarCatalogo() {
         System.out.println("\n--- Catálogo de Livros ---");
         for (Livro l : listaLivros) {
@@ -165,6 +166,7 @@ public class SistemaBiblioteca {
         }
     }
 
+    // mostrar usuários na fila de espera e histórico de busca
     private void mostrarFluxos() {
         System.out.println("\n--- Status do Sistema ---");
         System.out.println("Usuários na Fila de Espera: " + filaDeEspera);
@@ -175,6 +177,7 @@ public class SistemaBiblioteca {
         }
     }
 
+    // busca na árvore binária de livros usando BFS
     private void buscarNaArvore(Scanner scanner) {
         System.out.print("Digite o título para busca: ");
         String titulo = scanner.nextLine();
@@ -188,6 +191,7 @@ public class SistemaBiblioteca {
         }
     }
 
+    // usar Dijkstra pra receber recomendação relevante
     private void recomendarComDijkstra(Scanner scanner) {
         System.out.print("Título base para recomendação: ");
         String titulo = scanner.nextLine();
@@ -206,6 +210,27 @@ public class SistemaBiblioteca {
             });
         } else {
             System.out.println("Livro não encontrado.");
+        }
+    }
+
+    // colocar livro e usuário na fila de espera (Fila)
+    private void reservarLivro(Scanner scanner) {
+        System.out.print("Digite o título do livro que deseja reservar: ");
+        String titulo = scanner.nextLine();
+
+        // 1. Buscamos o livro na árvore para garantir que ele existe
+        Livro encontrado = arvore.buscarBFS(titulo);
+
+        if (encontrado != null) {
+            System.out.print("Digite seu nome para a fila de espera: ");
+            String nomeUsuario = scanner.nextLine();
+
+            // 2. Adicionamos o nome à fila (FIFO - First In, First Out)
+            filaDeEspera.add(nomeUsuario + " (Reserva: " + encontrado.getTitulo() + ")");
+
+            System.out.println("Reserva realizada com sucesso para: " + encontrado.getTitulo());
+        } else {
+            System.out.println("Livro não encontrado para reserva.");
         }
     }
 }
